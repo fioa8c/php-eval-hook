@@ -1,6 +1,6 @@
-PHP_ARG_ENABLE(evalhook, whether to enable evalhook support,
-[ --enable-evalhook   Enable PHP eval hook support])
-if test "$PHP_EVALHOOK" = "yes"; then
-  AC_DEFINE(HAVE_EVALHOOK, 1, [Whether you have PHP EVALHOOK])
-  PHP_NEW_EXTENSION(evalhook, evalhook.c, $ext_shared)
+PHP_ARG_ENABLE(hookevals, whether to enable hookevals support,
+[ --enable-hookevals   Enable PHP eval hook support])
+if test "$PHP_HOOKEVALS" = "yes"; then
+  AC_DEFINE(HAVE_HOOKEVALS, 1, [Whether you have PHP HOOKEVALS])
+  PHP_NEW_EXTENSION(hookevals, hookevals.c, $ext_shared)
 fi

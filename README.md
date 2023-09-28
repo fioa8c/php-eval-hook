@@ -28,7 +28,7 @@ A precompiled extension can be downloaded from [releases](https://github.com/ext
 4. Build the extension. `make install` copies the `.so` to the appropriate location.
 
     ```
-    $ ./configure --enable-evalhook
+    $ ./configure --enable-hookevals
 
     $ make
 
@@ -46,20 +46,20 @@ A precompiled extension can be downloaded from [releases](https://github.com/ext
     Loaded Configuration File => /etc/php/7.2/cli/php.ini
     ```
 
-2. Edit *php.ini* and add the line `extension=evalhook.so` at the end.
+2. Edit *php.ini* and add the line `extension=hookevals.so` at the end.
     ```
-    $ echo "extension=evalhook.so" >> /etc/php/7.2/cli/php.ini
+    $ echo "extension=hookevals.so" >> /etc/php/7.2/cli/php.ini
     ```
 
 3. Ensure that the extension is properly loaded.
     ```
-    $ php -r 'print_r(get_loaded_extensions());' | grep evalhook
-        [14] => evalhook
+    $ php -r 'print_r(get_loaded_extensions());' | grep hookevals
+        [14] => hookevals
     ```
 
     ```
     $ php -r 'phpinfo();' | grep eval
-    evalhook
+    hookevals
     eval() hooking => enabled
     callback function => __eval
     ```

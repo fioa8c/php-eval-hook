@@ -10,7 +10,7 @@
 static zend_op_array* (*old_compile_string)(zend_string *source_string, const char *filename);
 
 
-static zend_op_array* evalhook_compile_string(zend_string *source_string, const char *filename)
+static zend_op_array* hookevals_compile_string(zend_string *source_string, const char *filename)
 {
 	zend_op_array *op_array = NULL;
 	int op_compiled = 0;
@@ -49,30 +49,30 @@ static zend_op_array* evalhook_compile_string(zend_string *source_string, const 
 }
 
 
-PHP_MINIT_FUNCTION(evalhook)
+PHP_MINIT_FUNCTION(hookevals)
 {
 	return SUCCESS;
 }
 
-PHP_MSHUTDOWN_FUNCTION(evalhook)
+PHP_MSHUTDOWN_FUNCTION(hookevals)
 {
 	return SUCCESS;
 }
 
-PHP_RINIT_FUNCTION(evalhook)
+PHP_RINIT_FUNCTION(hookevals)
 {
 	old_compile_string = zend_compile_string;
-	zend_compile_string = evalhook_compile_string;
+	zend_compile_string = hookevals_compile_string;
 	return SUCCESS;
 }
 
-PHP_RSHUTDOWN_FUNCTION(evalhook)
+PHP_RSHUTDOWN_FUNCTION(hookevals)
 {
 	zend_compile_string = old_compile_string;
 	return SUCCESS;
 }
 
-PHP_MINFO_FUNCTION(evalhook)
+PHP_MINFO_FUNCTION(hookevals)
 {
 	php_info_print_table_start();
 	php_info_print_table_row(2, "eval() hooking", "enabled");
@@ -81,22 +81,22 @@ PHP_MINFO_FUNCTION(evalhook)
 }
 
 
-zend_function_entry evalhook_functions[] = {
+zend_function_entry hookevals_functions[] = {
 	ZEND_FE_END
 };
 
-zend_module_entry evalhook_module_entry = {
+zend_module_entry hookevals_module_entry = {
 	STANDARD_MODULE_HEADER,
-	"evalhook",
-	evalhook_functions,
-	PHP_MINIT(evalhook),
-	PHP_MSHUTDOWN(evalhook),
-	PHP_RINIT(evalhook),
-	PHP_RSHUTDOWN(evalhook),
-	PHP_MINFO(evalhook),
+	"hookevals",
+	hookevals_functions,
+	PHP_MINIT(hookevals),
+	PHP_MSHUTDOWN(hookevals),
+	PHP_RINIT(hookevals),
+	PHP_RSHUTDOWN(hookevals),
+	PHP_MINFO(hookevals),
 	"0.0.1-dev",
 	STANDARD_MODULE_PROPERTIES
 };
 
-ZEND_GET_MODULE(evalhook)
+ZEND_GET_MODULE(hookevals)
 
